@@ -547,6 +547,17 @@
   const focusPendingCountEl = document.getElementById('focus-pending-count');
   const focusHighlightCountEl = document.getElementById('focus-highlight-count');
   const focusCompletionCountEl = document.getElementById('focus-completion-count');
+  const dailyQuoteEl = document.getElementById('daily-quote');
+  const dailyQuoteAuthorEl = document.getElementById('daily-quote-author');
+
+  const dailyQuotes = [
+    ['Small steps still move the day forward.', 'TaskFlow note'],
+    ['Clarity comes from giving one thing your full attention.', 'Daily focus'],
+    ['Progress is a practice, not a perfect streak.', 'A gentle reminder'],
+    ['Make space for the work that matters most.', 'Today\'s intention'],
+    ['Done is a direction. Keep going.', 'TaskFlow note']
+  ];
+  let dailyQuoteIndex = 0;
 
   function renderAll() {
     renderTasks();
@@ -571,6 +582,12 @@
     if (todayDateStringEl) {
       const now = new Date();
       todayDateStringEl.textContent = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    if (dailyQuoteEl && dailyQuoteAuthorEl) {
+      const [quote, author] = dailyQuotes[dailyQuoteIndex];
+      dailyQuoteEl.textContent = quote;
+      dailyQuoteAuthorEl.textContent = author;
     }
   }
 
@@ -1610,6 +1627,10 @@
 
     setInterval(checkReminders, 10000);
     setTimeout(checkReminders, 1500);
+    setInterval(() => {
+      dailyQuoteIndex = (dailyQuoteIndex + 1) % dailyQuotes.length;
+      renderHeader();
+    }, 12000);
 
     document.addEventListener('click', initAudioContext, { once: true });
   }
