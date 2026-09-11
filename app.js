@@ -23,9 +23,13 @@
     'light-pure': 'Pure Light',
     'light-linen': 'Warm Linen',
     'light-blush': 'Blush Pastel',
+    'light-sage': 'Sage Garden',
+    'light-ocean': 'Ocean Mist',
     'dark-obsidian': 'Obsidian Dark',
     'dark-oled': 'Midnight OLED',
-    'dark-cosmic': 'Cosmic Indigo'
+    'dark-cosmic': 'Cosmic Indigo',
+    'dark-forest': 'Forest Night',
+    'dark-berry': 'Berry Noir'
   };
 
   // -------------------------------------------------------------------------

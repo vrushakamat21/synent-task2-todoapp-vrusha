@@ -10,6 +10,7 @@
 :root {
   --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-handwritten: 'Caveat', 'Segoe Print', cursive;
+  --font-display: 'DM Serif Display', Georgia, serif;
   
   --radius-xs: 6px;
   --radius-sm: 10px;
@@ -105,6 +106,54 @@
   --shadow-lg: 0 16px 40px rgba(225, 29, 72, 0.1);
 }
 
+/* ================== LIGHT THEME 4: SAGE GARDEN ================== */
+[data-theme="light-sage"] {
+  --bg-page: #f4f8f1;
+  --bg-gradient: radial-gradient(circle at 8% 0%, #e3f1df 0%, transparent 38%), linear-gradient(180deg, #fbfdf9 0%, #edf5ea 100%);
+  --surface-card: #ffffff;
+  --surface-subtle: #f5f9f2;
+  --surface-hover: #e9f2e4;
+  --border-color: #d7e5d2;
+  --border-focus: #3f8f5b;
+  --text-main: #1f3425;
+  --text-muted: #647968;
+  --text-light: #94aa98;
+  --primary: #3f8f5b;
+  --primary-hover: #2f7548;
+  --primary-light: #e0f1e4;
+  --primary-glow: rgba(63, 143, 91, 0.16);
+  --highlight-bg: #fff9df;
+  --highlight-border: #d6a928;
+  --highlight-glow: 0 4px 20px rgba(214, 169, 40, 0.16);
+  --shadow-sm: 0 2px 8px rgba(45, 78, 49, 0.05);
+  --shadow-md: 0 8px 22px rgba(45, 78, 49, 0.09);
+  --shadow-lg: 0 16px 40px rgba(45, 78, 49, 0.12);
+}
+
+/* ================== LIGHT THEME 5: OCEAN MIST ================== */
+[data-theme="light-ocean"] {
+  --bg-page: #f2f8fa;
+  --bg-gradient: radial-gradient(circle at 92% 0%, #d9f0f2 0%, transparent 38%), linear-gradient(180deg, #fcffff 0%, #edf6f8 100%);
+  --surface-card: #ffffff;
+  --surface-subtle: #f3f9fa;
+  --surface-hover: #e3f1f4;
+  --border-color: #d4e6ea;
+  --border-focus: #16829a;
+  --text-main: #17333b;
+  --text-muted: #64808a;
+  --text-light: #94adb4;
+  --primary: #16829a;
+  --primary-hover: #0e6578;
+  --primary-light: #ddf2f5;
+  --primary-glow: rgba(22, 130, 154, 0.16);
+  --highlight-bg: #fff8df;
+  --highlight-border: #e0a72e;
+  --highlight-glow: 0 4px 20px rgba(224, 167, 46, 0.16);
+  --shadow-sm: 0 2px 8px rgba(27, 74, 84, 0.05);
+  --shadow-md: 0 8px 22px rgba(27, 74, 84, 0.09);
+  --shadow-lg: 0 16px 40px rgba(27, 74, 84, 0.12);
+}
+
 /* ================== DARK THEME 1: OBSIDIAN DARK ================== */
 [data-theme="dark-obsidian"] {
   --bg-page: #10141d;
@@ -189,6 +238,54 @@
   --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.6);
 }
 
+/* ================== DARK THEME 4: FOREST NIGHT ================== */
+[data-theme="dark-forest"] {
+  --bg-page: #0d1714;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #193a31 0%, #0d1714 78%);
+  --surface-card: #14241f;
+  --surface-subtle: #10201b;
+  --surface-hover: #1b342b;
+  --border-color: rgba(132, 204, 155, 0.16);
+  --border-focus: #80cfa0;
+  --text-main: #effcf2;
+  --text-muted: #9ab7a3;
+  --text-light: #668873;
+  --primary: #80cfa0;
+  --primary-hover: #54b47c;
+  --primary-light: rgba(128, 207, 160, 0.14);
+  --primary-glow: rgba(128, 207, 160, 0.24);
+  --highlight-bg: rgba(245, 190, 75, 0.11);
+  --highlight-border: #f5be4b;
+  --highlight-glow: 0 4px 22px rgba(245, 190, 75, 0.2);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.58);
+}
+
+/* ================== DARK THEME 5: BERRY NOIR ================== */
+[data-theme="dark-berry"] {
+  --bg-page: #1a1119;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #43233b 0%, #1a1119 80%);
+  --surface-card: #261724;
+  --surface-subtle: #20131e;
+  --surface-hover: #382036;
+  --border-color: rgba(244, 164, 196, 0.16);
+  --border-focus: #f0a0c2;
+  --text-main: #fff5fa;
+  --text-muted: #c5a4b6;
+  --text-light: #927285;
+  --primary: #f0a0c2;
+  --primary-hover: #dd76a5;
+  --primary-light: rgba(240, 160, 194, 0.14);
+  --primary-glow: rgba(240, 160, 194, 0.23);
+  --highlight-bg: rgba(250, 190, 83, 0.11);
+  --highlight-border: #f5be4b;
+  --highlight-glow: 0 4px 22px rgba(245, 190, 75, 0.2);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.6);
+}
+
 /* --------------------------------------------------------------------------
    2. GLOBAL RESETS & APP CONTAINER
    -------------------------------------------------------------------------- */
@@ -228,9 +325,27 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: 0;
+  opacity: 0.16;
+  background-image: linear-gradient(180deg, rgba(248, 250, 252, 0.68), rgba(248, 250, 252, 0.9)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=2200&q=80');
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: normal;
+}
+
+html[data-theme^="dark"] body::after {
+  background-image: linear-gradient(180deg, rgba(8, 15, 20, 0.78), rgba(8, 15, 20, 0.92)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=2200&q=80');
   opacity: 0.22;
-  background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(255, 255, 255, 0.035) 6px 7px);
-  mix-blend-mode: soft-light;
+}
+
+body .app-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Quiet, decorative shapes that give the canvas depth without competing with the app. */
+body::before {
+  background-image: linear-gradient(115deg, rgba(148, 163, 184, 0.09) 1px, transparent 1px), linear-gradient(245deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px), radial-gradient(circle at 12% 18%, var(--primary-glow) 0 70px, transparent 72px), radial-gradient(circle at 88% 68%, rgba(245, 158, 11, 0.08) 0 110px, transparent 112px);
 }
 
 #confetti-canvas {
@@ -543,6 +658,7 @@ body::after {
 }
 
 .quote-strip {
+  position: relative;
   display: flex;
   align-items: baseline;
   gap: 10px;
@@ -551,6 +667,35 @@ body::after {
   padding: 8px 18px;
   color: var(--text-muted);
   text-align: center;
+  isolation: isolate;
+}
+
+.quote-strip::before,
+.quote-strip::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid var(--primary-glow);
+}
+
+.quote-strip::before {
+  width: 38px;
+  height: 38px;
+  left: 3%;
+  top: -8px;
+  border-radius: 11px;
+  transform: rotate(18deg);
+  background: var(--primary-light);
+}
+
+.quote-strip::after {
+  width: 18px;
+  height: 18px;
+  right: 7%;
+  bottom: 1px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.12);
 }
 
 .quote-mark {
@@ -563,8 +708,13 @@ body::after {
 .quote-strip p {
   flex: 1;
   font-family: var(--font-handwritten);
-  font-size: 1.14rem;
-  font-style: italic;
+  font-size: 1.3rem;
+  font-style: normal;
+  transition: opacity var(--trans-fast), transform var(--trans-fast);
+}
+
+.quote-strip p.quote-serif {
+  font-family: var(--font-handwritten);
 }
 
 .quote-author {
@@ -649,9 +799,13 @@ body::after {
 .dot-pure-light { background: #2563eb; }
 .dot-linen { background: #d97706; }
 .dot-blush { background: #e11d48; }
+.dot-sage { background: #3f8f5b; }
+.dot-ocean { background: #16829a; }
 .dot-obsidian { background: #38bdf8; }
 .dot-oled { background: #ffffff; }
 .dot-cosmic { background: #818cf8; }
+.dot-forest { background: #80cfa0; }
+.dot-berry { background: #f0a0c2; }
 
 /* Profile Chip */
 .profile-chip-btn {
