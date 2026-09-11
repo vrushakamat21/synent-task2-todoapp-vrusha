@@ -9,6 +9,7 @@
    -------------------------------------------------------------------------- */
 :root {
   --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-handwritten: 'Caveat', 'Segoe Print', cursive;
   
   --radius-xs: 6px;
   --radius-sm: 10px;
@@ -297,6 +298,9 @@ body::after {
 .brand-caption {
   font-size: 0.76rem;
   color: var(--text-muted);
+  font-family: var(--font-handwritten);
+  font-size: 0.98rem;
+  line-height: 1;
 }
 
 .nav-search-wrap {
@@ -396,6 +400,13 @@ body::after {
   box-shadow: var(--shadow-sm);
   overflow: hidden;
   position: relative;
+  transition: border-color var(--trans-smooth), box-shadow var(--trans-smooth), transform var(--trans-smooth);
+}
+
+.focus-overview:hover {
+  border-color: color-mix(in srgb, var(--primary) 42%, var(--border-color));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .focus-overview::after {
@@ -440,6 +451,8 @@ body::after {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: var(--font-handwritten);
+  font-size: 1.03rem;
 }
 
 .focus-metrics {
@@ -457,6 +470,13 @@ body::after {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   background: var(--surface-card);
+  transition: transform var(--trans-fast), border-color var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.focus-metric:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 18px var(--primary-glow);
+  transform: translateY(-3px);
 }
 
 .metric-icon {
@@ -512,6 +532,16 @@ body::after {
   transform: translateY(-1px);
 }
 
+.focus-action span {
+  display: inline-block;
+  font-size: 1.1rem;
+  transition: transform var(--trans-fast);
+}
+
+.focus-action:hover span {
+  transform: rotate(90deg) scale(1.15);
+}
+
 .quote-strip {
   display: flex;
   align-items: baseline;
@@ -532,7 +562,8 @@ body::after {
 
 .quote-strip p {
   flex: 1;
-  font-size: 0.82rem;
+  font-family: var(--font-handwritten);
+  font-size: 1.14rem;
   font-style: italic;
 }
 
@@ -669,6 +700,12 @@ body::after {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  transition: border-color var(--trans-smooth), box-shadow var(--trans-smooth), transform var(--trans-smooth);
+}
+
+.workspace-column:hover {
+  border-color: color-mix(in srgb, var(--primary) 25%, var(--border-color));
+  box-shadow: var(--shadow-md);
 }
 
 /* Column Header Styles */
@@ -770,6 +807,7 @@ body::after {
   border-color: var(--text-light);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+  transform: translateY(-3px) rotate(0deg);
 }
 
 .note-card-item.pinned {
@@ -777,6 +815,11 @@ body::after {
   background: var(--highlight-bg);
   transform: rotate(-0.7deg);
   box-shadow: 0 10px 22px rgba(245, 158, 11, 0.13);
+}
+
+.note-card-item.pinned:hover {
+  transform: translateY(-4px) rotate(0deg);
+  box-shadow: 0 14px 26px rgba(245, 158, 11, 0.2);
 }
 
 .note-card-item.pinned::before {
@@ -1363,6 +1406,7 @@ body::after {
 
 .completed-item-card:hover {
   border-color: var(--text-light);
+  transform: translateX(3px);
 }
 
 .cic-left {
