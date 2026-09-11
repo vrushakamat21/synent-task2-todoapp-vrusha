@@ -1781,6 +1781,16 @@ body {
 
   .nav-actions {
     justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .theme-dropdown-wrap {
+    flex: 1;
+  }
+
+  .theme-dropdown-wrap .nav-btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .three-column-workspace {
@@ -1806,5 +1816,142 @@ body {
 
   .importance-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .toast-stack {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+  }
+
+  .toast-box {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+
+  .app-container {
+    padding: 10px 10px 40px;
+  }
+
+  .app-nav {
+    padding: 12px;
+    border-radius: var(--radius-md);
+  }
+
+  .nav-brand {
+    width: 100%;
+  }
+
+  .brand-caption {
+    font-size: 0.68rem;
+  }
+
+  .nav-actions {
+    gap: 6px;
+  }
+
+  .nav-btn {
+    padding: 8px 10px;
+  }
+
+  .nav-btn-label,
+  .dropdown-chevron {
+    display: none;
+  }
+
+  .theme-dropdown-wrap {
+    flex: 0 0 auto;
+  }
+
+  .theme-dropdown-wrap .nav-btn {
+    width: auto;
+  }
+
+  .profile-chip-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .profile-chip-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .workspace-column {
+    padding: 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .todo-title-row {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .todo-add-bar {
+    border-radius: var(--radius-md);
+    flex-wrap: wrap;
+    padding: 6px;
+  }
+
+  .todo-add-bar input {
+    min-width: 0;
+    flex: 1 1 calc(100% - 54px);
+  }
+
+  .btn-more-options {
+    width: 100%;
+    padding: 9px 12px;
+  }
+
+  .filter-pills-row {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .filter-pills-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pill-filter {
+    white-space: nowrap;
+  }
+
+  .task-card {
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .task-actions {
+    opacity: 1;
+  }
+
+  .modal-backdrop {
+    align-items: flex-start;
+    padding: 12px;
+    overflow-y: auto;
+  }
+
+  .modal-card {
+    max-height: calc(100vh - 24px);
+    padding: 20px 16px;
+  }
+
+  .profile-stats-row {
+    gap: 5px;
+  }
+
+  .stat-pill-card {
+    padding: 8px 4px;
   }
 }
