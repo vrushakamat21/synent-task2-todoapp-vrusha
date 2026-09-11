@@ -542,6 +542,11 @@
   const navUserNameEl = document.getElementById('nav-user-name');
   const currentThemeLabelEl = document.getElementById('current-theme-label');
   const todayDateStringEl = document.getElementById('today-date-string');
+  const focusGreetingEl = document.getElementById('focus-greeting');
+  const focusMottoEl = document.getElementById('focus-motto');
+  const focusPendingCountEl = document.getElementById('focus-pending-count');
+  const focusHighlightCountEl = document.getElementById('focus-highlight-count');
+  const focusCompletionCountEl = document.getElementById('focus-completion-count');
 
   function renderAll() {
     renderTasks();
@@ -555,6 +560,13 @@
     if (navAvatarPreviewEl) navAvatarPreviewEl.textContent = state.profile.avatar || '😊';
     if (navUserNameEl) navUserNameEl.textContent = state.profile.name || 'User';
     if (currentThemeLabelEl) currentThemeLabelEl.textContent = THEME_NAMES[state.theme] || 'Pure Light';
+    if (focusGreetingEl) {
+      const firstName = (state.profile.name || '').trim().split(/\s+/)[0];
+      focusGreetingEl.textContent = firstName ? `Good to see you, ${firstName}.` : 'Make today count.';
+    }
+    if (focusMottoEl) {
+      focusMottoEl.textContent = state.profile.tagline || 'A calm plan makes room for good work.';
+    }
 
     if (todayDateStringEl) {
       const now = new Date();
@@ -580,6 +592,9 @@
     const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
     if (progressBarFillEl) progressBarFillEl.style.width = `${percentage}%`;
     if (progressPercentageLabelEl) progressPercentageLabelEl.textContent = `${percentage}%`;
+    if (focusPendingCountEl) focusPendingCountEl.textContent = pending;
+    if (focusHighlightCountEl) focusHighlightCountEl.textContent = highlightedCount;
+    if (focusCompletionCountEl) focusCompletionCountEl.textContent = `${percentage}%`;
 
     // Profile modal numbers
     const profileStatCompleted = document.getElementById('profile-stat-completed');
@@ -1521,6 +1536,7 @@
   // Quick Inline Add Task
   const quickTaskInput = document.getElementById('quick-task-input');
   const quickAddBtn = document.getElementById('quick-add-btn');
+  const focusAddTaskBtn = document.getElementById('focus-add-task-btn');
 
   function handleQuickAdd() {
     if (!quickTaskInput) return;
@@ -1538,6 +1554,7 @@
   }
 
   if (quickAddBtn) quickAddBtn.addEventListener('click', handleQuickAdd);
+  if (focusAddTaskBtn) focusAddTaskBtn.addEventListener('click', () => openAddTaskModal());
   if (quickTaskInput) {
     quickTaskInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') handleQuickAdd();

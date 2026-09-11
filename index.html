@@ -84,6 +84,32 @@
       </div>
     </header>
 
+    <!-- Daily focus overview -->
+    <section class="focus-overview" aria-label="Today's focus overview">
+      <div class="focus-intro">
+        <span class="focus-kicker">YOUR DAILY FOCUS</span>
+        <h2 id="focus-greeting">Make today count.</h2>
+        <p id="focus-motto">A calm plan makes room for good work.</p>
+      </div>
+      <div class="focus-metrics">
+        <div class="focus-metric">
+          <span class="metric-icon">◷</span>
+          <span class="metric-copy"><strong id="focus-pending-count">0</strong><small>active tasks</small></span>
+        </div>
+        <div class="focus-metric">
+          <span class="metric-icon metric-icon-warm">✦</span>
+          <span class="metric-copy"><strong id="focus-highlight-count">0</strong><small>highlights</small></span>
+        </div>
+        <div class="focus-metric">
+          <span class="metric-icon metric-icon-green">✓</span>
+          <span class="metric-copy"><strong id="focus-completion-count">0%</strong><small>completed</small></span>
+        </div>
+      </div>
+      <button class="focus-action" id="focus-add-task-btn" type="button">
+        <span>＋</span> Plan a task
+      </button>
+    </section>
+
     <!-- Main 3-Column Balanced Workspace -->
     <!-- [LEFT: Notes]  [CENTER: To-Do with + Sign]  [RIGHT: Completed Tasks] -->
     <main class="three-column-workspace">

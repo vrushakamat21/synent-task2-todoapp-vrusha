@@ -355,6 +355,136 @@ body {
   color: var(--text-muted);
 }
 
+/* Daily Focus Overview */
+.focus-overview {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.25fr) minmax(300px, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 26px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(110deg, var(--surface-card), var(--primary-light));
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.focus-overview::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: 17%;
+  top: -110px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.12);
+  pointer-events: none;
+}
+
+.focus-intro,
+.focus-metrics,
+.focus-action {
+  position: relative;
+  z-index: 1;
+}
+
+.focus-kicker {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--primary);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.focus-intro h2 {
+  color: var(--text-main);
+  font-size: 1.35rem;
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.focus-intro p {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.focus-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.focus-metric {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+}
+
+.metric-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.metric-icon-warm { background: #fef3c7; color: #d97706; }
+.metric-icon-green { background: #d1fae5; color: #059669; }
+
+.metric-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.metric-copy strong {
+  color: var(--text-main);
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.metric-copy small {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.focus-action {
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 10px 16px;
+  background: var(--primary);
+  color: white;
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--trans-fast), background var(--trans-fast);
+}
+
+.focus-action:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
 /* Theme Menu Popover */
 .theme-dropdown-wrap {
   position: relative;
@@ -1756,6 +1886,15 @@ body {
    10. RESPONSIVE DESIGN (3 COLUMNS -> 1 COLUMN ADAPTATION)
    -------------------------------------------------------------------------- */
 @media (max-width: 1080px) {
+  .focus-overview {
+    grid-template-columns: 1fr auto;
+  }
+
+  .focus-metrics {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
   .three-column-workspace {
     grid-template-columns: 260px 1fr;
   }
@@ -1773,6 +1912,21 @@ body {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+  }
+
+  .focus-overview {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .focus-metrics {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .focus-action {
+    width: 100%;
   }
 
   .nav-search-wrap {
@@ -1889,6 +2043,21 @@ body {
   .workspace-column {
     padding: 14px;
     border-radius: var(--radius-md);
+  }
+
+  .focus-metrics {
+    gap: 6px;
+  }
+
+  .focus-metric {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 8px;
+  }
+
+  .focus-intro p {
+    white-space: normal;
   }
 
   .todo-title-row {
