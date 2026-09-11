@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light-pure">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow • Focused To-Do, Notes & Completed Tasks</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+  <!-- Refined Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Celebration Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="app-container">
+    
+    <!-- Top Navigation -->
+    <header class="app-nav">
+      <div class="nav-brand">
+        <span class="brand-sparkle">✨</span>
+        <div class="brand-text">
+          <h1 class="brand-name">TaskFlow</h1>
+          <span class="brand-caption">Mindful & Organized Everyday</span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="nav-search-wrap">
+        <span class="search-lens">🔍</span>
+        <input type="text" id="task-search-input" placeholder="Search tasks or notes..." autocomplete="off">
+        <button class="search-clear-btn" id="search-clear-btn" title="Clear search" style="display: none;">✕</button>
+      </div>
+
+      <!-- Controls: Themes, Sound & Profile -->
+      <div class="nav-actions">
+        <!-- Theme Menu (3 Light & 3 Dark Themes) -->
+        <div class="theme-dropdown-wrap">
+          <button class="nav-btn" id="theme-menu-btn" title="Select Theme">
+            <span class="nav-btn-icon">🎨</span>
+            <span class="nav-btn-label" id="current-theme-label">Pure Light</span>
+            <span class="dropdown-chevron">▼</span>
+          </button>
+          
+          <div class="theme-popover" id="theme-dropdown">
+            <div class="theme-group-label">LIGHT THEMES</div>
+            <button class="theme-opt active" data-theme-val="light-pure">
+              <span class="theme-dot dot-pure-light"></span> Pure Light
+            </button>
+            <button class="theme-opt" data-theme-val="light-linen">
+              <span class="theme-dot dot-linen"></span> Warm Linen
+            </button>
+            <button class="theme-opt" data-theme-val="light-blush">
+              <span class="theme-dot dot-blush"></span> Blush Pastel
+            </button>
+
+            <div class="theme-group-label">DARK THEMES</div>
+            <button class="theme-opt" data-theme-val="dark-obsidian">
+              <span class="theme-dot dot-obsidian"></span> Obsidian Dark
+            </button>
+            <button class="theme-opt" data-theme-val="dark-oled">
+              <span class="theme-dot dot-oled"></span> Midnight OLED
+            </button>
+            <button class="theme-opt" data-theme-val="dark-cosmic">
+              <span class="theme-dot dot-cosmic"></span> Cosmic Indigo
+            </button>
+          </div>
+        </div>
+
+        <!-- Sound Chime Toggle -->
+        <button class="nav-btn icon-only" id="sound-toggle-btn" title="Toggle audio feedback">
+          <span id="sound-icon">🔔</span>
+        </button>
+
+        <!-- User Profile Pill -->
+        <button class="profile-chip-btn" id="open-profile-btn" title="Edit Profile">
+          <span class="profile-chip-avatar" id="nav-avatar-preview">😊</span>
+          <span class="profile-chip-name" id="nav-user-name">User</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main 3-Column Balanced Workspace -->
+    <!-- [LEFT: Notes]  [CENTER: To-Do with + Sign]  [RIGHT: Completed Tasks] -->
+    <main class="three-column-workspace">
+      
+      <!-- ================================================================= -->
+      <!-- LEFT COLUMN: QUICK NOTES                                          -->
+      <!-- ================================================================= -->
+      <aside class="workspace-column notes-column">
+        <div class="column-header">
+          <div class="col-title-group">
+            <span class="col-icon">📝</span>
+            <h2 class="col-title">Notes</h2>
+            <span class="count-pill" id="notes-badge-count">0</span>
+          </div>
+          <button class="col-add-btn" id="open-note-modal-btn" title="Add Note">+</button>
+        </div>
+        <p class="col-caption">Quick reminders, thoughts & scribbles</p>
+
+        <div class="notes-scroll-area" id="sticky-notes-grid">
+          <!-- Dynamically populated notes -->
+        </div>
+
+        <div class="empty-column-state" id="empty-sticky-state" style="display: none;">
+          <span class="empty-col-icon">📌</span>
+          <p>No notes yet.<br>Click <strong>+</strong> to write a quick note.</p>
+        </div>
+      </aside>
+
+      <!-- ================================================================= -->
+      <!-- CENTER COLUMN: ACTIVE TO-DO LIST (WITH INTEGRATED PLUS SIGN)     -->
+      <!-- ================================================================= -->
+      <section class="workspace-column todo-column">
+        
+        <!-- Column Header with Greeting & Filter Tabs -->
+        <div class="todo-main-header">
+          <div class="todo-title-row">
+            <div class="col-title-group">
+              <span class="col-icon">🎯</span>
+              <h2 class="col-title">To-Do List</h2>
+              <span class="count-pill primary-pill" id="count-pending">0</span>
+            </div>
+            <span class="date-today-pill" id="today-date-string">Today</span>
+          </div>
+
+          <!-- Integrated Add Task Bar with Prominent Plus Sign -->
+          <div class="todo-add-bar">
+            <button class="btn-plus-add" id="quick-add-btn" title="Add this task">
+              <span class="plus-symbol">+</span>
+            </button>
+            <input type="text" id="quick-task-input" placeholder="Add a new task... (Press Enter or click +)" maxlength="120">
+            <button class="btn-more-options" id="open-task-modal-btn" title="Detailed Options (Due Date, Reminder, Stickers)">
+              <span>Options 🪄</span>
+            </button>
+          </div>
+
+          <!-- Filter Ribbon & Category Pills -->
+          <div class="todo-toolbar">
+            <div class="filter-pills-row">
+              <button class="pill-filter active" data-filter="all">All <span id="count-all">0</span></button>
+              <button class="pill-filter" data-filter="pending">Active</button>
+              <button class="pill-filter highlight-filter" data-filter="highlighted">⭐ Highlighted <span id="count-highlighted">0</span></button>
+              <button class="pill-filter" data-filter="today">⏰ Due Today <span id="count-today">0</span></button>
+            </div>
+
+            <div class="category-pills-row" id="category-filter-chips">
+              <button class="cat-filter-btn active" data-cat="all">All</button>
+              <button class="cat-filter-btn" data-cat="Personal">💖 Personal</button>
+              <button class="cat-filter-btn" data-cat="Study">📚 Study</button>
+              <button class="cat-filter-btn" data-cat="Work">💼 Work</button>
+              <button class="cat-filter-btn" data-cat="Health">🏃 Health</button>
+              <button class="cat-filter-btn" data-cat="Shopping">🛒 Shopping</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Tasks List -->
+        <div class="todo-tasks-list" id="active-tasks-list">
+          <!-- Dynamically populated tasks -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-column-state large-empty" id="empty-tasks-state" style="display: none;">
+          <span class="empty-col-icon">🌿</span>
+          <h3>All caught up!</h3>
+          <p>You have no active tasks. Type above and press <strong>+</strong> to add your next goal.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- RIGHT COLUMN: COMPLETED TASKS LIST                                -->
+      <!-- ================================================================= -->
+      <aside class="workspace-column completed-column">
+        <div class="column-header">
+          <div class="col-title-group">
+            <span class="col-icon">✅</span>
+            <h2 class="col-title">Completed</h2>
+            <span class="count-pill success-pill" id="completed-collapsible-count">0</span>
+          </div>
+          <button class="btn-clear-completed" id="clear-completed-btn" title="Clear all completed tasks">Clear</button>
+        </div>
+        
+        <!-- Daily Progress Bar -->
+        <div class="completed-progress-card">
+          <div class="prog-info">
+            <span class="prog-label">Completion Rate</span>
+            <span class="prog-val" id="progress-percentage-label">0%</span>
+          </div>
+          <div class="prog-bar-track">
+            <div class="prog-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="completed-scroll-area" id="completed-tasks-list">
+          <!-- Dynamically populated completed tasks -->
+        </div>
+
+        <div class="empty-column-state" id="empty-completed-state" style="display: none;">
+          <span class="empty-col-icon">☕</span>
+          <p>No completed tasks yet.<br>Check off a task to celebrate your progress!</p>
+        </div>
+      </aside>
+
+    </main>
+
+  </div> <!-- End App Container -->
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: INITIAL ONBOARDING PROFILE SETUP (ASKS IN THE BEGINNING)       -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="onboarding-modal" style="display: none;">
+    <div class="modal-card onboarding-card">
+      <div class="onboarding-head">
+        <div class="onboarding-sparkle">👋</div>
+        <h2>Welcome to TaskFlow!</h2>
+        <p>Let's create your profile so you can start organizing your day.</p>
+      </div>
+
+      <form id="onboarding-form" class="modal-form">
+        <!-- Choose Avatar -->
+        <div class="form-group text-center">
+          <label class="form-label text-center">Select Your Profile Avatar</label>
+          <div class="onboarding-avatar-preview" id="onboarding-avatar-display">😊</div>
+          <div class="avatar-choices-grid" id="onboarding-avatar-selector">
+            <button type="button" class="av-btn selected" data-avatar="😊">😊</button>
+            <button type="button" class="av-btn" data-avatar="🌟">🌟</button>
+            <button type="button" class="av-btn" data-avatar="🐱">🐱</button>
+            <button type="button" class="av-btn" data-avatar="🐶">🐶</button>
+            <button type="button" class="av-btn" data-avatar="🦊">🦊</button>
+            <button type="button" class="av-btn" data-avatar="🌸">🌸</button>
+            <button type="button" class="av-btn" data-avatar="☕">☕</button>
+            <button type="button" class="av-btn" data-avatar="🚀">🚀</button>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-group">
+          <label for="onboarding-name-input" class="form-label">Your Name</label>
+          <input type="text" id="onboarding-name-input" class="form-control" placeholder="Enter your name (e.g. Vrush)" required maxlength="25">
+        </div>
+
+        <!-- Motto -->
+        <div class="form-group">
+          <label for="onboarding-tagline-input" class="form-label">Daily Goal / Motto <span class="label-hint">(Optional)</span></label>
+          <input type="text" id="onboarding-tagline-input" class="form-control" placeholder="e.g. Taking it one peaceful step at a time ✨" maxlength="60">
+        </div>
+
+        <button type="submit" class="btn-primary-action btn-full">Start Organizing ✨</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: ADD / EDIT TASK (DETAILED OPTIONS)                             -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="task-modal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title-wrap">
+          <span class="modal-head-icon">🪄</span>
+          <h3 id="task-modal-title">Task Details</h3>
+        </div>
+        <button class="modal-close-btn" id="close-task-modal-btn">✕</button>
+      </div>
+
+      <form id="task-form" class="modal-form">
+        <input type="hidden" id="task-edit-id" value="">
+
+        <div class="form-group">
+          <label for="task-title-input" class="form-label">Task Name *</label>
+          <input type="text" id="task-title-input" class="form-control" placeholder="What would you like to accomplish?" required maxlength="100">
+        </div>
+
+        <div class="form-group">
+          <label for="task-desc-input" class="form-label">Description / Sub-notes <span class="label-hint">(Optional)</span></label>
+          <textarea id="task-desc-input" class="form-control" rows="2" placeholder="Add extra context, steps, or links..." maxlength="300"></textarea>
+        </div>
+
+        <!-- Highlight Toggle -->
+        <div class="form-group highlight-box-toggle">
+          <label class="custom-check-label">
+            <input type="checkbox" id="task-highlight-toggle">
+            <span class="custom-box"></span>
+            <span class="check-text-group">
+              <span class="check-main-text">⭐ Highlight this task as Important</span>
+              <span class="check-sub-text">Adds a warm golden highlight so you notice it right away</span>
+            </span>
+          </label>
+        </div>
+
+        <!-- Importance Level -->
+        <div class="form-group">
+          <label class="form-label">Level of Importance</label>
+          <div class="importance-grid">
+            <label class="imp-card urgent">
+              <input type="radio" name="task-priority" value="critical">
+              <span class="imp-box">🔥 Urgent</span>
+            </label>
+            <label class="imp-card high">
+              <input type="radio" name="task-priority" value="high" checked>
+              <span class="imp-box">⭐ High</span>
+            </label>
+            <label class="imp-card medium">
+              <input type="radio" name="task-priority" value="medium">
+              <span class="imp-box">🌿 Normal</span>
+            </label>
+            <label class="imp-card low">
+              <input type="radio" name="task-priority" value="low">
+              <span class="imp-box">☕ Low</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Category & Due Date -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="task-category-select" class="form-label">Category</label>
+            <select id="task-category-select" class="form-control form-select">
+              <option value="Personal" selected>💖 Personal</option>
+              <option value="Study">📚 Study</option>
+              <option value="Work">💼 Work</option>
+              <option value="Health">🏃 Health</option>
+              <option value="Shopping">🛒 Shopping</option>
+              <option value="Ideas">💡 Ideas</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="task-due-date" class="form-label">Due Date & Time</label>
+            <div class="datetime-inputs-row">
+              <input type="date" id="task-due-date" class="form-control">
+              <input type="time" id="task-due-time" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional Stickers -->
+        <div class="form-group">
+          <label class="form-label">Attach a Sticker / Emoji <span class="label-hint">(Optional)</span></label>
+          <div class="sticker-strip" id="task-sticker-selector">
+            <button type="button" class="stk-btn selected" data-sticker="" title="None">None</button>
+            <button type="button" class="stk-btn" data-sticker="📚">📚</button>
+            <button type="button" class="stk-btn" data-sticker="💼">💼</button>
+            <button type="button" class="stk-btn" data-sticker="🛒">🛒</button>
+            <button type="button" class="stk-btn" data-sticker="🏃">🏃</button>
+            <button type="button" class="stk-btn" data-sticker="☕">☕</button>
+            <button type="button" class="stk-btn" data-sticker="💡">💡</button>
+            <button type="button" class="stk-btn" data-sticker="🎨">🎨</button>
+            <button type="button" class="stk-btn" data-sticker="✈️">✈️</button>
+            <button type="button" class="stk-btn" data-sticker="🌱">🌱</button>
+            <button type="button" class="stk-btn" data-sticker="⭐">⭐</button>
+          </div>
+        </div>
+
+        <!-- Reminder Chime -->
+        <div class="form-group">
+          <label class="custom-check-label">
+            <input type="checkbox" id="task-reminder-toggle" checked>
+            <span class="custom-box"></span>
+            <span class="check-main-text">🔔 Play soft reminder chime when due</span>
+          </label>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="cancel-task-modal-btn">Cancel</button>
+          <button type="submit" class="btn-primary-action" id="save-task-btn">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: ADD / EDIT QUICK NOTE                                          -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="note-modal" style="display: none;">
+    <div class="modal-card modal-card-sm">
+      <div class="modal-head">
+        <div class="modal-title-wrap">
+          <span class="modal-head-icon">📝</span>
+          <h3 id="note-modal-title">New Note</h3>
+        </div>
+        <button class="modal-close-btn" id="close-note-modal-btn">✕</button>
+      </div>
+
+      <form id="note-form" class="modal-form">
+        <input type="hidden" id="note-edit-id" value="">
+
+        <div class="form-group">
+          <label for="note-text-input" class="form-label">Note Content</label>
+          <textarea id="note-text-input" class="form-control" rows="4" placeholder="Type a reminder, list, phone number, or quick idea..." required maxlength="300"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Card Accent Color</label>
+          <div class="color-palette-dots" id="note-color-selector">
+            <button type="button" class="dot-btn yellow selected" data-color="yellow" title="Butter Yellow"></button>
+            <button type="button" class="dot-btn blue" data-color="blue" title="Sky Blue"></button>
+            <button type="button" class="dot-btn mint" data-color="mint" title="Fresh Mint"></button>
+            <button type="button" class="dot-btn peach" data-color="peach" title="Soft Peach"></button>
+            <button type="button" class="dot-btn lavender" data-color="lavender" title="Lavender"></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="custom-check-label">
+            <input type="checkbox" id="note-pinned-toggle">
+            <span class="custom-box"></span>
+            <span class="check-main-text">⭐ Pin to top of Notes</span>
+          </label>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="cancel-note-modal-btn">Cancel</button>
+          <button type="submit" class="btn-primary-action" id="save-note-btn">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: USER PROFILE & STATS EDIT                                      -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="profile-modal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title-wrap">
+          <span class="modal-head-icon">👑</span>
+          <h3>My Profile</h3>
+        </div>
+        <button class="modal-close-btn" id="close-profile-modal-btn">✕</button>
+      </div>
+
+      <form id="profile-form" class="modal-form">
+        <div class="profile-preview-box">
+          <div class="profile-big-avatar" id="profile-avatar-display">😊</div>
+          <div class="profile-avatar-pick-wrap">
+            <label class="form-label">Change Avatar</label>
+            <div class="avatar-choices-grid" id="avatar-sticker-selector">
+              <button type="button" class="av-btn selected" data-avatar="😊">😊</button>
+              <button type="button" class="av-btn" data-avatar="🌟">🌟</button>
+              <button type="button" class="av-btn" data-avatar="🐱">🐱</button>
+              <button type="button" class="av-btn" data-avatar="🐶">🐶</button>
+              <button type="button" class="av-btn" data-avatar="🦊">🦊</button>
+              <button type="button" class="av-btn" data-avatar="🌸">🌸</button>
+              <button type="button" class="av-btn" data-avatar="☕">☕</button>
+              <button type="button" class="av-btn" data-avatar="🚀">🚀</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="profile-name-input" class="form-label">Name</label>
+          <input type="text" id="profile-name-input" class="form-control" placeholder="e.g. Vrush" maxlength="25" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profile-tagline-input" class="form-label">Daily Goal / Motto</label>
+          <input type="text" id="profile-tagline-input" class="form-control" placeholder="e.g. Making today count! ✨" maxlength="60">
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="profile-stats-row">
+          <div class="stat-pill-card">
+            <span class="stat-big-num" id="profile-stat-completed">0</span>
+            <span class="stat-sub-text">Tasks Done</span>
+          </div>
+          <div class="stat-pill-card">
+            <span class="stat-big-num" id="profile-stat-streak">3</span>
+            <span class="stat-sub-text">Day Streak 🔥</span>
+          </div>
+          <div class="stat-pill-card">
+            <span class="stat-big-num" id="profile-stat-score">100</span>
+            <span class="stat-sub-text">Points ✨</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-danger-link" id="reset-data-btn">Reset All Data</button>
+          <button type="submit" class="btn-primary-action" id="save-profile-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-stack" id="toast-container" aria-live="polite"></div>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
