@@ -905,7 +905,7 @@
 
       const pinBtn = document.createElement('span');
       pinBtn.className = `btn-pin ${note.pinned ? 'pinned' : ''}`;
-      pinBtn.textContent = note.pinned ? '⭐ Pinned' : '☆ Pin';
+      pinBtn.textContent = note.pinned ? '📌 Pinned' : '☆ Pin note';
       pinBtn.addEventListener('click', () => togglePinNote(note.id));
 
       const delBtn = document.createElement('button');
